@@ -40,8 +40,12 @@ solder pads. The colour coding is `red=vcc`, `blue=swdio`, `green=swdclk`,
 It is not necessary to solder anything to your `tomu` in order to flash it. If
 you have a steady hand you can just hold the wires in place for the couple of
 seconds it takes to flash a board. I super-glued some breadboard wires together
-to ensure the spacing is constant. You can loop openocd invocations by adding
-`watch` in front of your flashing command. e.g. `watch openocd -f ...`
+to ensure the spacing is constant. You could also use the 4x1 row of standard
+spacing 2.54mm straight pins. You can use the following bash one-liner, to run
+openocd in a loop. It will wait for the openocd to see tomu, will flash it and
+terminate the loop, to avoid double-flashing.
+
+`while true; do sleep 1; sudo openocd -f raspberrypi-native.cfg -f tomu-flash.conf && break; done`
 
 The pins used by the configuration files for the Raspberry Pi in this directory
 for two-wire debugging are pins `24` and `25` for `swdio` and `swclk`
